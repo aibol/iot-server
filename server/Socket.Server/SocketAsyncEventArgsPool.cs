@@ -37,5 +37,18 @@ namespace Socket.Server
                 return _pool.Pop();
             }
         }
+
+        /// <summary>
+        /// 返回所有的Socket实例
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DualModeSocketAsyncEventArgs> GetAll()
+        {
+            lock (_pool)
+            {
+                foreach (var client in _pool)
+                    yield return client;
+            }
+        }
     }
 }

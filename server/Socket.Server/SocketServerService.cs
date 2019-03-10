@@ -8,6 +8,7 @@ namespace Socket.Server
     internal partial class SocketServerService : ServiceBase
     {
         private readonly ILog _logger;
+        private OTAServer _server;
 
         public SocketServerService()
         {
@@ -24,15 +25,17 @@ namespace Socket.Server
             var listenPort = int.Parse(ConfigurationManager.AppSettings["ListenPort"]);
             var bufferSize = int.Parse(ConfigurationManager.AppSettings["BufferSize"]);
 
-            var server = new OTAServer(maxConnections, bufferSize);
-            server.Initialize();
-            server.Start(new IPEndPoint(IPAddress.Parse(listenIp), listenPort));
+            _server = new OTAServer(maxConnections, bufferSize);
+            _server.Initialize();
+            _server.Start(new IPEndPoint(IPAddress.Parse(listenIp), listenPort));
 
-            _logger.Info("service started");
+            _logger.Info($"service started, listening on {listenIp}:{listenPort}");
         }
 
         protected override void OnStop()
         {
+            _server.Stop();
+
             _logger.Info("service stop");
         }
     }

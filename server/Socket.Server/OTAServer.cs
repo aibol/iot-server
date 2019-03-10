@@ -74,6 +74,17 @@ namespace Socket.Server
         }
 
         /// <summary>
+        /// 关闭OTA服务器
+        /// </summary>
+        public void Stop()
+        {
+            var clients = _saeaPool.GetAll();
+
+            foreach (var client in clients)
+                client.Close();
+        }
+
+        /// <summary>
         /// 开始监听客户端的连接
         /// </summary>
         /// <param name="receiveEventArgs"></param>

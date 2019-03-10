@@ -11,8 +11,6 @@
 
         public AsyncUserToken(System.Net.Sockets.Socket socket)
         {
-            socket.DualMode = true;
-
             Socket = socket;
         }
 
