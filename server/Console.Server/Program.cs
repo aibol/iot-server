@@ -29,7 +29,7 @@ namespace Console.Server
             var assemblyFilePath = Assembly.GetExecutingAssembly().Location;
             var assemblyDirPath = Path.GetDirectoryName(assemblyFilePath);
             var configFilePath = assemblyDirPath + "\\log4net.config";
-            XmlConfigurator.ConfigureAndWatch(new FileInfo(configFilePath));
+            var col = XmlConfigurator.ConfigureAndWatch(new FileInfo(configFilePath));
             _logger = LogManager.GetLogger("SocketServer");
             _logger.Info("logger created successfully");
         }

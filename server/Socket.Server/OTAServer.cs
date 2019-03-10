@@ -140,7 +140,7 @@ namespace Socket.Server
 
             // As soon as the client is connected, send the client socket into a DualMode saea
             var socketAccepted = receiveEventArgs.AcceptSocket;
-            socketAccepted.DualMode = true;
+            //socketAccepted.DualMode = true;
             socketAccepted.IOControl(IOControlCode.KeepAliveValues, SocketOptionInValue, null);
             eventArgs.UserToken.Socket = socketAccepted;
 
