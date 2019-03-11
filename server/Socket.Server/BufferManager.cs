@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 
 namespace Socket.Server
@@ -71,18 +72,42 @@ namespace Socket.Server
             return true;
         }
 
+        /// <summary>
+        /// 从默认字节池中设置字节数组区段
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public bool SetBuffer(DualModeSocketAsyncEventArgs args)
         {
             return SetReceiveBuffer(args.ReceiveArgs) &&
                    SetSendBuffer(args.SendArgs);
         }
 
-        public void AdjustSendBuffer(SocketAsyncEventArgs args, int bufferSize)
+        /// <summary>
+        /// 设置指定的字节数组
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="buffer"></param>
+        public void SetBuffer(SocketAsyncEventArgs args, Array buffer)
         {
-            if (bufferSize > _bufferSize)
+            SetBuffer(args, buffer, 0, buffer.Length);
+        }
+
+        /// <summary>
+        /// 设置指定的字节数组
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="buffer"></param>
+        /// <param name="offset"></param>
+        /// <param name="length"></param>
+        public void SetBuffer(SocketAsyncEventArgs args, Array buffer, int offset, int length)
+        {
+            if (length > _bufferSize)
                 throw new Exception("buffersize is too big to send, default size is :" + _bufferSize);
 
-            args.SetBuffer(args.Offset, bufferSize);
+            Array.Copy(buffer, offset, args.Buffer, args.Offset, length);
+
+            args.SetBuffer(args.Offset, length);
         }
     }
 }

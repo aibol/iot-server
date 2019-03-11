@@ -94,6 +94,11 @@ namespace Socket.Server
             {
                 // todo: ReceiveArgs handler;
 
+                // for now: send back just received datagram
+                _bufferManager.SetBuffer(SendArgs, ReceiveArgs.Buffer, ReceiveArgs.Offset, ReceiveArgs.BytesTransferred);
+                UserToken.Socket.SendAsync(SendArgs);
+                // end for now
+
                 UserToken.Socket.ReceiveAsync(ReceiveArgs);
             }
             else
@@ -116,7 +121,7 @@ namespace Socket.Server
             {
                 var bytes = command.GetBytes();
 
-                _bufferManager.AdjustSendBuffer(SendArgs, bytes.Length);
+                _bufferManager.SetBuffer(SendArgs, bytes);
 
                 UserToken.Socket.SendAsync(SendArgs);
             }
