@@ -152,7 +152,7 @@ namespace Socket.Server
         /// <returns></returns>
         public string GetIdentifier()
         {
-            throw new NotImplementedException();
+            return "not implemented getidentifier";
         }
     }
 }
