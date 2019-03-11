@@ -6,11 +6,5 @@ if not errorlevel 1 (goto exist) else goto notexist
 sc stop SocketServer
 sc delete SocketServer
 
-goto :end
-
 :notexist
-echo not exist SocketServer
-
-goto :end
-
-:end
+echo pass delete SocketServer
