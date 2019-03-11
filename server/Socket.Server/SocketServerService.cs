@@ -30,7 +30,7 @@ namespace Socket.Server
 
                 _server = new OTAServer(maxConnections, bufferSize);
                 _server.Initialize();
-                _logger.Info("service initialized");
+                _logger.Info($"service initialized, {listenIp}:{listenPort}");
                 _server.Start(new IPEndPoint(IPAddress.Parse(listenIp), listenPort));
                 _logger.Info($"service started, listening on {listenIp}:{listenPort}");
             }
