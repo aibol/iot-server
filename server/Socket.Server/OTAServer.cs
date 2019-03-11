@@ -81,7 +81,7 @@ namespace Socket.Server
             var clients = _saeaPool.GetAll();
 
             foreach (var client in clients)
-                client.Close();
+                client?.Close();
         }
 
         /// <summary>
