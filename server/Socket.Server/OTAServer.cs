@@ -78,6 +78,9 @@ namespace Socket.Server
         /// </summary>
         public void Stop()
         {
+            if (_saeaPool == null)
+                return;
+
             var clients = _saeaPool.GetAll();
 
             foreach (var client in clients)

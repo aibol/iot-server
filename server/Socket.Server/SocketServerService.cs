@@ -37,12 +37,13 @@ namespace Socket.Server
             catch (Exception e)
             {
                 _logger.Error($"service started error:{e.Message}");
+                throw;
             }
         }
 
         protected override void OnStop()
         {
-            _server.Stop();
+            _server?.Stop();
 
             _logger.Info("service stop");
         }
