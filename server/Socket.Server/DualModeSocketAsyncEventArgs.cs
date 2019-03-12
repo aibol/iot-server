@@ -135,8 +135,10 @@ namespace Socket.Server
         {
             try
             {
-                UserToken.Socket.Shutdown(SocketShutdown.Both);
-                UserToken.Socket.Close();
+                _logger.Info($"Start to close : {UserToken.Socket?.AddressFamily}");
+
+                UserToken.Socket?.Shutdown(SocketShutdown.Both);
+                UserToken.Socket?.Close();
             }
             catch (Exception e)
             {

@@ -42,12 +42,11 @@ namespace Socket.Server
         /// 返回所有的Socket实例
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<DualModeSocketAsyncEventArgs> GetAll()
+        public DualModeSocketAsyncEventArgs[] GetAll()
         {
             lock (_pool)
             {
-                foreach (var client in _pool)
-                    yield return client;
+                return _pool?.ToArray();
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using log4net;
@@ -83,8 +84,15 @@ namespace Socket.Server
 
             var clients = _saeaPool.GetAll();
 
+            _logger.Info($"{clients.Count(t => t.Connected)} clients to be closed");
+
             foreach (var client in clients)
-                client?.Close();
+            {
+                if (!client.Connected)
+                    continue;
+
+                client.Close();
+            }
         }
 
         /// <summary>
